@@ -1,0 +1,16 @@
+mat-card {
+    max-width: 600px;
+    margin: 2em auto;
+  }
+  
+  mat-form-field {
+    display: block;
+  }
+  ::ng-deep .mat-form-field-underline {
+    display: none;
+}
+.child {
+    display: inline-block;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+  }

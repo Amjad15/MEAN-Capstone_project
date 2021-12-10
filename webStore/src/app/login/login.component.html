@@ -1,0 +1,36 @@
+<mat-card>
+    <mat-card-content>
+      <div  *ngFor="let error of errors">
+        <div class=" text-left alert alert-danger" role="alert">
+            <mat-icon class="mt-3">warning</mat-icon>
+            {{ error }}
+        </div>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <h2 >Log In</h2>
+        <mat-error *ngIf="loginInvalid">
+          The email and password were not recognized
+        </mat-error>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Email" formControlName="email" required>
+          <mat-error>
+            Please provide a valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput type="password" placeholder="Password" formControlName="password" required>
+          <mat-error>
+            Please provide a valid password
+          </mat-error>
+        </mat-form-field>
+        <div class="form-group text-left float-left">
+          <mat-checkbox class="float-left" formControlName="admin">Admin?</mat-checkbox>
+        </div>
+       
+        <button mat-raised-button color="accent">Login</button>
+      </form>
+    </mat-card-content>
+    <p class="text-center mt-4">Don't have account? <a [routerLink]="['/register']">Sign Up</a></p>
+  <br>
+  </mat-card>
+  

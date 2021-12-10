@@ -1,0 +1,122 @@
+ <div #container>
+   
+    <div class="form-row">
+        <h2 class="page-header" ><strong>All Users</strong></h2>
+    </div>
+    <hr>
+    <br>
+  
+    <button mat-raised-button color="accent" (click)="addUser()">Add User</button>
+ 
+<!--
+    <div class="form-row text-right" *ngIf="message">
+        <div class="col-md-12 text-right alert alert-success" role="alert">
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            {{ message }}
+        </div>
+    </div>    -->
+
+ 
+
+    <div class="form-row text-right" *ngFor="let error of errors" >
+        <!-- <div class="col-md-12 text-right alert alert-danger" role="alert">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            {{ error }}
+        </div> -->
+        
+         
+        <br>
+    
+        <div class="form-row">
+            <mat-form-field style="width: 40%;">
+                <mat-label>Search here</mat-label>
+                <input class="text-right" matInput (keyup)="applyFilter($event)" placeholder="">
+            </mat-form-field>
+        </div> 
+
+ 
+
+    </div>
+    <div class="mat-elevation-z2" class="table-responsive">
+    <table mat-table id="PTable" [dataSource]="dataSource" matSort matSortActive="createdAt" matSortDirection="asc" matSortDisableClear  >
+        <ng-container matColumnDef="username">
+            <th mat-header-cell  *matHeaderCellDef>UserName</th>
+            <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell  *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+        <ng-container matColumnDef="password">
+            <th mat-header-cell  *matHeaderCellDef>Password</th>
+            <td mat-cell *matCellDef="let element">{{element.password}} </td>
+        </ng-container>
+        <ng-container matColumnDef="active">
+            <th mat-header-cell  *matHeaderCellDef>Active</th>
+            <td mat-cell *matCellDef="let element">{{element.active}} </td>
+        </ng-container>
+        <ng-container matColumnDef="role">
+            <th mat-header-cell  *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let element">{{element.role}} </td>
+        </ng-container>
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell  *matHeaderCellDef>Created At</th>
+            <td mat-cell *matCellDef="let element">{{element.createdAt}} </td>
+        </ng-container>
+        <!-- Actions Column -->
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell  *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element"> 
+                <div class="text-center">
+                    <button mat-icon-button class="btn btn-warning" (click)="editUser(element)"  title="edit user info">
+                        <mat-icon inline=true>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button class="btn btn-danger" (click)="deActivate(element._id)"  title="Deactivate">
+                        <mat-icon inline=true>delete</mat-icon>
+                    </button>
+                </div>
+                 </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;let i = index;"></tr>
+    </table>
+    <mat-paginator [ngStyle]="{'display': 'flex; !important'}"
+      [pageSizeOptions]="[5, 10, 20]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+    </div>
+
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <h2 >{{formTitle }}</h2>
+                <mat-form-field class="full-width-input">
+                    <input matInput placeholder="username" formControlName="username" required>
+                    <mat-error>
+                    Please provide a valid username address
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input matInput placeholder="_id" formControlName="_id" value={{_id}} hidden [hidden]="true">
+                   
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                <input matInput placeholder="Email" formControlName="email" required>
+                <mat-error>
+                    Please provide a valid email address
+                </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                <input matInput type="password" placeholder="Password" formControlName="password" required>
+                <mat-error>
+                    Please provide a valid password
+                </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input matInput type="role" placeholder="Role" formControlName="role" required>
+                    
+                    </mat-form-field>
+                <button mat-raised-button color="accent">Save</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
